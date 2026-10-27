@@ -2,21 +2,24 @@
 
 ## Objetivo actual
 
-Crear la base del explorador web de LLMs: `index.html`, `styles.css` y `app.js` en la raíz.
+Laboratorio para probar `runonweb` en el navegador. Página operativa con tres demos verificados.
 
 ## Hecho
 
-- Repositorio Git inicializado (rama `main`).
-- Documentación base: `README.md`, `AGENTS.md`, `STATE.md`, `.gitignore`.
+- Vite + `runonweb@0.1.0` instalados; scripts `dev` / `build` / `preview`.
+- `index.html`, `styles.css`, `app.js` con tres demos: emojis, similitud de embeddings, quitar fondo.
+- Badge de dispositivo (WebGPU / f16 / WASM) usando `runonweb/core`.
+- Progreso de descarga real por tarjeta, reutilización de instancias y botones bloqueados durante la inferencia.
+- Verificado en Chromium headless (WASM): emojis `🍕❤️`, similitud 48.6 % / 384 dims, PNG con alfa (175k px transparentes).
 
 ## Pendiente
 
-- `index.html` con la estructura de la interfaz.
-- `styles.css` con el sistema visual.
-- `app.js` con la lógica (un único archivo).
-- `CHANGELOG.md` al primer cambio funcional.
-- `ROADMAP.md` cuando exista dirección a mediano plazo.
+- Probar en un navegador con WebGPU real (no verificado aún).
+- Decidir si se añaden más demos (`ocr`, `stt`, `tts`, `detect`, `classify`, `translate`).
 
 ## Zonas frágiles
 
-- Ninguna todavía; no hay código.
+- `app.js` debe seguir siendo un archivo único; no introducir carpetas `src/` ni componentes.
+- `runonweb` exporta `.ts` sin compilar: sin Vite no resuelve.
+- Inferencias simultáneas compiten por el contexto global de ONNX Runtime; no paralelizar demos.
+- Modelos grandes: 219 MB en quitar fondo. No confundir lentitud con fallo.

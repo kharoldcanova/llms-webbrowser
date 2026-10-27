@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>runonweb · laboratorio</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <span class="logo">run<b>on</b>web</span>
+        <span class="tag">laboratorio</span>
+      </div>
+      <div class="device" id="deviceBadge" title="Aceleración detectada por la librería">
+        <span class="dot"></span><span id="deviceText">detectando…</span>
+      </div>
+    </header>
+
+    <main>
+      <p class="intro">
+        Inferencia local en el navegador con <code>runonweb</code>. Sin API keys ni backend:
+        el modelo se descarga la primera vez y queda en caché del navegador.
+      </p>
+
+      <!-- 1 -->
+      <section class="card">
+        <div class="card-head">
+          <h2>Texto → emojis</h2>
+          <span class="size">modelo ~4 MB</span>
+        </div>
+        <p class="hint">Traduce una frase a emojis con un T5 diminuto.</p>
+        <div class="row">
+          <input id="emojiInput" type="text" value="I love pizza and my dog" placeholder="Escribe algo…" />
+          <button id="emojiBtn" type="button">Convertir</button>
+        </div>
+        <div class="progress"><i id="emojiBar"></i></div>
+        <div class="status" id="emojiStatus"></div>
+        <output class="result emoji" id="emojiOut"></output>
+      </section>
+
+      <!-- 2 -->
+      <section class="card">
+        <div class="card-head">
+          <h2>Similitud de embeddings</h2>
+          <span class="size">modelo ~23 MB</span>
+        </div>
+        <p class="hint">Compara dos frases con <code>all-MiniLM-L6-v2</code> y similitud coseno.</p>
+        <div class="row">
+          <input id="simA" type="text" value="El gato duerme en el sofá" placeholder="Frase A" />
+        </div>
+        <div class="row">
+          <input id="simB" type="text" value="Un felino descansa sobre el sillón" placeholder="Frase B" />
+          <button id="simBtn" type="button">Comparar</button>
+        </div>
+        <div class="progress"><i id="simBar"></i></div>
+        <div class="status" id="simStatus"></div>
+        <output class="result" id="simOut"></output>
+      </section>
+
+      <!-- 3 -->
+      <section class="card">
+        <div class="card-head">
+          <h2>Quitar fondo</h2>
+          <span class="size">modelo ~219 MB</span>
+        </div>
+        <p class="hint">Sube una imagen y obtén un PNG con transparencia.</p>
+        <div class="row">
+          <input id="bgFile" type="file" accept="image/*" />
+          <button id="bgBtn" type="button" disabled>Procesar</button>
+        </div>
+        <div class="progress"><i id="bgBar"></i></div>
+        <div class="status" id="bgStatus"></div>
+        <div class="compare" id="bgOut" hidden>
+          <figure>
+            <img id="bgOriginal" alt="Imagen original" />
+            <figcaption>original</figcaption>
+          </figure>
+          <figure class="checker">
+            <img id="bgResult" alt="Imagen sin fondo" />
+            <figcaption>sin fondo</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <p class="footer">
+        Requiere conexión la primera vez. GPU vía WebGPU cuando está disponible; si no, WASM.
+      </p>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
